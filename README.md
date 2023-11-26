@@ -7,7 +7,7 @@ This repository has not been built yet, but sooner or later it will contain a fu
 The algorithms used here are not inspired by any specific existing audio steganography algorithms, but it requires further research whether such a method has ever been invented and/or implemented.
 
 ## To do list
-- [ ] Research for existing papers/articles about audio steganography methods
+- [ ] Research existing papers/articles about audio steganography methods
 - [ ] Write a description of the general idea
 - [ ] Create program templates
 - [ ] Implement algorithms in <b>python</b>
