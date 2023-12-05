@@ -9,7 +9,7 @@ The algorithms used here are not inspired by any specific existing audio stegano
 ## Software used
 - [Ableton 11 Live](https://www.ableton.com) for midi tracks visualisation
 - [MuseScore 4](https://musescore.org) for scores
-- any code editor
+- Python with [mido](https://pypi.org/project/mido/) library
 
 All sheet music used for testing is under a CC BY or CC0 license and is free to share and modify.
 
