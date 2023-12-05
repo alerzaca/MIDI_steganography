@@ -1,8 +1,5 @@
 from enum import Enum
 
-nonal_digits = "012345678"
-binary_digits = ["000", "001", "010", "011", "100", "101", "110", "111"]
-
 '''
 ZERO [0] corresponds to the same position as the original
 ONE [1] corresponds to the position shifted forward relative to the original
