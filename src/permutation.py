@@ -1,5 +1,8 @@
 from enum import Enum
 
+nonal_digits = "012345678"
+binary_digits = ["000", "001", "010", "011", "100", "101", "110", "111"]
+
 '''
 ZERO [0] corresponds to the same position as the original
 ONE [1] corresponds to the position shifted forward relative to the original
@@ -34,7 +37,30 @@ def map_permutation_to_number(permutation):
     
     return permutation_mapping.get(permutation, None)
 
+def nonal_to_binary(nonal_number):
+    nonal_digits = [int(digit) for digit in str(nonal_number)]
+    decimal_number = sum(digit * (9 ** idx) for idx, digit in enumerate(reversed(nonal_digits)))
+    return bin(decimal_number)[2:]
+
+def binary_to_nonal(binary_number):
+    decimal_number = int(str(binary_number), 2)
+    nonal_digits = []
+    while decimal_number > 0:
+        nonal_digit = decimal_number % 9
+        nonal_digits.insert(0, str(nonal_digit))
+        decimal_number //= 9
+
+    return ''.join(nonal_digits) if nonal_digits else '0'
+
 '''
+nonal_input = 545345364235
+binary_result = nonal_to_binary(nonal_input)
+print(f"Nonal {nonal_input} in binary: {binary_result}")
+
+binary_input = "010110011010101"
+nonal_result = binary_to_nonal(binary_input)
+print(f"Binary {binary_input} in nonal: {nonal_result}")
+
 def permutation_test(permutation):
     result = map_permutation_to_number(permutation)
 
