@@ -12,10 +12,3 @@ The algorithms used here are not inspired by any specific existing audio stegano
 - Python with [mido](https://pypi.org/project/mido/) library
 
 All sheet music used for testing is under a CC BY or CC0 license and is free to share and modify.
-
-## To do list
-- [ ] Research existing papers/articles about audio steganography methods
-- [ ] Write a description of the general idea
-- [ ] Create program templates
-- [ ] Implement algorithms in <b>python</b>
-- [ ] Rebuild finall project in <b>C++</b> (hopefully)
