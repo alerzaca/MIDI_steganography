@@ -1,63 +1,41 @@
 import os
-import random
-from midi_functions import extract_note_info, calculate_randrange
-from text_functions import ascii_to_pairs
+from text_functions import calculate_offsets
+from midi_functions import extract_note_info, encode_midi, decode_midi
 
 # Parameters
-RAND_PERCENTAGE = 2.5
+RANDRANGE = 7
 MIDI_FILE = 'Beethoven_Fur_Elise.mid'
 PLAINTEXT = "Hello, World!"
 
-def encode_pair(midi_pair, movement_pair, randrange):
-    n = random.randrange(1, randrange+1)
-    m = random.randrange(1, randrange+1)
-
-    x = 0
-    y = 0
-    if movement_pair[0] == 0:
-        x = midi_pair[0]
-    elif movement_pair[0] == 1:
-        x = midi_pair[0] - n
-    else:
-        x = midi_pair[0] + n
-
-    if movement_pair[1] == 0:
-        y = midi_pair[1]
-    elif movement_pair[1] == 1:
-        y = midi_pair[1] - n
-    else:
-        y = midi_pair[1] + n
-
-    return [x, y]
-
-def encode(midi_pairs, movement_pairs, randrange):
-    encoded_pairs = []
-    for i in range(len(movement_pairs)):
-        pair = encode_pair(midi_pairs[i], movement_pairs[i], randrange)
-        encoded_pairs.append(pair)
-    
-    return encoded_pairs
-
-def decode():
-    return
-
-
 def main():
     current_dir = os.path.dirname(os.path.abspath(__file__))
-    midi_file_path = os.path.join(current_dir, '..', 'MIDIs', MIDI_FILE)
+    original_midi_file_path = os.path.join(current_dir, '..', 'MIDIs', MIDI_FILE)
+    
+    offset_array = calculate_offsets(PLAINTEXT, RANDRANGE)
+    # offset_array = calculate_offsets(PLAINTEXT, RAND_PERCENTAGE)
 
-    randrange = calculate_randrange(midi_file_path, RAND_PERCENTAGE)
+    modified_midi_file_path = os.path.join(current_dir, '..', 'MIDIs', 'Modified_' + MIDI_FILE)
+    encode_midi(original_midi_file_path, modified_midi_file_path, offset_array)
 
-    midi_pairs = extract_note_info(midi_file_path)
-    movement_pairs = ascii_to_pairs(PLAINTEXT)
+    print("Offsets calculated from given plaintext:")
+    print(offset_array)
+    print('\n')
 
-    print("ASCII:", PLAINTEXT)
-    print("Pair list:", movement_pairs)
-    print("Randrange: ", randrange)
+    print("Original notes positions:")
+    original_pos = extract_note_info(original_midi_file_path)
+    print(original_pos)
+    print('\n')
 
-    print(midi_pairs)
-    encoded_midi = encode(midi_pairs, movement_pairs, randrange)
-    print(encoded_midi)
+    print("Modified notes positions:")
+    encoded_pos = extract_note_info(modified_midi_file_path)
+    print(encoded_pos)
+    print('\n')
+
+    decoded_offests = decode_midi(original_pos, encoded_pos)
+
+    print("Offsets re-calculated from encoded midi:")
+    print(decoded_offests)
+    print('\n')
 
 if __name__ == "__main__":
     main()
