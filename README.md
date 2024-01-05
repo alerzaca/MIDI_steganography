@@ -91,6 +91,7 @@ message 2: beginning of the next note (note_on), adjusted to its original positi
 - Build usage interface (get rid of hardcoded plaintext, file paths etc.)
 - Implement randrange determining algorithm
 - Make the code more readable
+- Write tests, create more different encoded MIDIs as an example
 ```
 
 
