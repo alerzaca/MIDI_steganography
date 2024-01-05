@@ -37,3 +37,36 @@ def calculate_randrange(midi_file_path, percentage=10):
     shift_range = int(percentage / 100 * average_duration)
 
     return shift_range
+
+def create_modified_midi(input_midi_file_path, output_midi_file_path, modified_note_pairs):
+    # Load the original MIDI file
+    original_midi_file = MidiFile(input_midi_file_path)
+
+    # Create a new MIDI file
+    modified_midi_file = MidiFile()
+
+    # Copy metadata and other non-track information
+    for i, track in enumerate(original_midi_file.tracks):
+        if i == 0:
+            modified_midi_file.tracks.append(track.copy())
+
+    # Create a new track for modified notes
+    modified_track = MidiTrack()
+    modified_midi_file.tracks.append(modified_track)
+
+    # Iterate through the modified note pairs and add corresponding note messages
+    for msg in original_midi_file.tracks[1]:  # Assuming track 1 contains the notes
+        if msg.type in {'note_on', 'note_off'}:
+            note_number = msg.note
+            velocity = msg.velocity
+            time = msg.time
+
+            # Find corresponding modified pair for the current note
+            matching_pair = next(pair for pair in modified_note_pairs if pair[0] == time)
+            modified_time = matching_pair[1]
+
+            # Add modified note to the new track
+            modified_track.append(Message(msg.type, note=note_number, velocity=velocity, time=modified_time))
+
+    # Save the modified MIDI file
+    modified_midi_file.save(output_midi_file_path)

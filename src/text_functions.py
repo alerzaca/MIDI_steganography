@@ -32,7 +32,7 @@ def map_permutation_to_number(permutation):
         (2, 1): Permutation.TWO_ONE,
         (2, 2): Permutation.TWO_TWO,
     }
-    
+
     return permutation_mapping.get(permutation, None)
 
 
