@@ -18,11 +18,33 @@ def encode_pair(pair, randrange):
 
     return [x, y]
 
+
+def decode_pair(pair):
+    x = pair[0]
+    y = pair[1]
+
+    if x > 0:
+        x = 2
+    elif x < 0:
+        x = 1
+    else:
+        x = 0
+
+    if y > 0:
+        y = 2
+    elif y < 0:
+        y = 1
+    else:
+        y = 0
+
+    return [x,y]
+
+
 def ascii_to_base9(text):
     base9_list = []
 
     for char in text:
-        ascii_value = ord(char)
+        ascii_value = ord(char) - ord(' ')
         base9_value = ""
         
         while ascii_value > 0:
@@ -43,9 +65,10 @@ def base9_to_ascii(base9_text):
         if not base9_chunk:
             base9_chunk = '0'
         decimal_value = int(base9_chunk, 9)
-        ascii_text += chr(decimal_value)
+        ascii_text += chr(decimal_value + ord(' '))
 
     return ascii_text
+
 
 
 def calculate_offsets(text, randrange):
@@ -59,3 +82,14 @@ def calculate_offsets(text, randrange):
         pairs.append(encode_pair(pair, randrange))
 
     return pairs
+
+def decode_text(encoded_pairs):
+    base9_text = ""
+
+    for pair in encoded_pairs:
+        decoded_pair = decode_pair(pair)
+        perm_number = decoded_pair[0] * 3 + decoded_pair[1]
+        base9_text += str(perm_number)
+
+    text = base9_to_ascii(base9_text)
+    return text

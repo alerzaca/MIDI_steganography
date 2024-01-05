@@ -1,5 +1,5 @@
 import os
-from text_functions import calculate_offsets
+from text_functions import calculate_offsets, decode_text
 from midi_functions import extract_note_info, encode_midi, decode_midi
 
 # Parameters
@@ -17,6 +17,7 @@ def main():
     modified_midi_file_path = os.path.join(current_dir, '..', 'MIDIs', 'Modified_' + MIDI_FILE)
     encode_midi(original_midi_file_path, modified_midi_file_path, offset_array)
 
+    print(f"Original text: {PLAINTEXT} \n")
     print("Offsets calculated from given plaintext:")
     print(offset_array)
     print('\n')
@@ -36,6 +37,9 @@ def main():
     print("Offsets re-calculated from encoded midi:")
     print(decoded_offests)
     print('\n')
+
+    decoded_text = decode_text(decoded_offests)
+    print(f"Decoded text: {decoded_text} \n")
 
 if __name__ == "__main__":
     main()
